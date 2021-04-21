@@ -28,7 +28,7 @@ import java.util.List;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ciudad> {
     //Variables del adaptador
-    private List<Ciudad>ciudadList;
+    private ArrayList<Ciudad>ciudadList;
     private Activity context;
     private RoomDB database;
 
@@ -137,14 +137,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ciudad> {
             }
         });
 
-//        holder.fab_mapa.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//               // Intent intent = new Intent(this,MapaGeneral.class);
-//                Intent intent = new Intent(context, MapaGeneral.class);
-//                intent.putExtra("ciudad", (Parcelable) ciudadList);
-//            }
-//        });
+        holder.fab_mapa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, MapaGeneral.class);
+                intent.putExtra("ciudad",ciudadList);
+                context.startActivity(intent);
+            }
+        });
 
         //comprueba que este checked visitado y bloquea la pulsacion
         holder.ch_visitada.setChecked(ciudad.isVisited());
@@ -189,7 +189,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ciudad> {
             fab_mapa = itemView.findViewById(R.id.fab_mapa);
         }
     }
-    public void updateList(List<Ciudad> lista) {
+    public void updateList(ArrayList<Ciudad> lista) {
         ciudadList = lista;
         notifyDataSetChanged();
     }

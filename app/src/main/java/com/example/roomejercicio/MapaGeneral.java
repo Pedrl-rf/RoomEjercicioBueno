@@ -45,6 +45,12 @@ public class MapaGeneral extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap map) {
 
+        ArrayList<Ciudad>todasCiudades = getIntent().getParcelableArrayListExtra("ciudad");
+        for(int i = 0; i < todasCiudades.size();i++){
+            MarkerOptions todasLasCiudades = new MarkerOptions()
+                    .position(new LatLng(todasCiudades.get(i).getLatitud(),todasCiudades.get(i).getLongitud()));
+            Mciudad = map.addMarker(todasLasCiudades);
+        }
 
 
         map.setTrafficEnabled(true); //trafico activado
@@ -57,15 +63,7 @@ public class MapaGeneral extends AppCompatActivity implements OnMapReadyCallback
         uiSettings.setTiltGesturesEnabled(true); //Gestos de ángulo
         uiSettings.setRotateGesturesEnabled(true); //Gestos de rotación
 
-        MarkerOptions ciudad = new MarkerOptions()
-                .position(new LatLng(22.55,22.55))
-                .title("Estas aquí")
-                .snippet("Pulsa aquí para acceder")
-                .flat(true)
-                .draggable(true)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-        Mciudad = map.addMarker(ciudad);
-        Mciudad.setTag("Sitios del mundo");
+
 
     }
 }

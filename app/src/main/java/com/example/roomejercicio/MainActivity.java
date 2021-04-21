@@ -94,20 +94,5 @@ public class MainActivity extends AppCompatActivity {
                 }).start();
             }
         });
-
-        bt_todasciudades.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        LiveData<List<Ciudad>> todasciudades = RoomDB.getInstance(MainActivity.this).ciudadDao().getAll();
-//                    }
-//                }).start();
-                Intent intent = new Intent(MainActivity.this, MapaGeneral.class);
-                startActivity(intent);
-            }
-        });
-
     }
 }
