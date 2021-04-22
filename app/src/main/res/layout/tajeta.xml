@@ -24,10 +24,9 @@
 
             <TextView
                 android:id="@+id/tv_nombre"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />
 
@@ -36,7 +35,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />
 
@@ -46,7 +44,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="#FFFFFF"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_longitud"
@@ -54,7 +53,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="#FFFFFF"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:visibility="gone" />
         </LinearLayout>
 
         <LinearLayout
@@ -65,8 +65,8 @@
 
             <ImageView
                 android:id="@+id/img_ciudad"
-                android:layout_width="84dp"
-                android:layout_height="60dp"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 tools:srcCompat="@tools:sample/avatars" />
@@ -91,14 +91,14 @@
 
         <CheckBox
             android:id="@+id/ch_visitada"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
             android:layout_weight="5" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_mapa"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|center_horizontal"
             android:layout_weight="5"

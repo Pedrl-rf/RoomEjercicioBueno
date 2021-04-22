@@ -128,7 +128,8 @@ public class Ciudad implements Parcelable,Comparable<Ciudad> {
 
     @Override
     public int compareTo(Ciudad o) {
-
-        return 0;
+        String o_nombreciudad = o.getNombreCiudad().toUpperCase();
+        String marca_this = this.nombreCiudad.toUpperCase();
+        return marca_this.compareTo(o_nombreciudad);
     }
 }

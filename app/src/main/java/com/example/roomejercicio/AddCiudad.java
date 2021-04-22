@@ -1,5 +1,7 @@
 package com.example.roomejercicio;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.example.roomejercicio.bbdd.Ciudad;
 import com.example.roomejercicio.bbdd.RoomDB;
@@ -23,21 +26,24 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class AddCiudad extends AppCompatActivity implements OnMapReadyCallback {
 
-    private TextInputEditText tiet_nombreciudad,tiet_nombrepais, tiet_latitud, tiet_longitud;
+    private TextInputEditText tiet_nombreciudad, tiet_nombrepais, tiet_latitud, tiet_longitud;
     private CheckBox ch_visited;
     private Button bt_enviarciudad;
     private double longitude;
     private double latitude;
     private Marker marker4;
+
     @Override
     public void onMapReady(GoogleMap map) {
         /* TIPO DE MAPA */
-        map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
 //        GoogleMap.MAP_TYPE_NONE
 //        GoogleMap.MAP_TYPE_NORMAL
 //        GoogleMap.MAP_TYPE_SATELLITE
 //        GoogleMap.MAP_TYPE_TERRAIN
 
+
+        map.getUiSettings().setMyLocationButtonEnabled(true);
         map.setTrafficEnabled(true); //trafico activado
 
         UiSettings uiSettings = map.getUiSettings();

@@ -23,6 +23,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 //        ciudadList = (List<Ciudad>) database.ciudadDao().getAll();
 
         //LinearLayoutManager que es?
+        //Es como se va a mostrar el recyclerView. en este caso de tipo lineal
         linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         database.ciudadDao().getAll().observe(this, new Observer<List<Ciudad>>() {
             @Override
             public void onChanged(List<Ciudad> ciudadList) {
+                Collections.sort(ciudadList,Ciudad::compareTo);
                 ArrayList<Ciudad>ciudads = new ArrayList<>();
                 ciudads.addAll(ciudadList);
                 adapter.updateList(ciudads);
