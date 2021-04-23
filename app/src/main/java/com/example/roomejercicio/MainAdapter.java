@@ -14,10 +14,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.roomejercicio.bbdd.Ciudad;
 import com.example.roomejercicio.bbdd.RoomDB;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -31,6 +39,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ciudad> {
     private ArrayList<Ciudad>ciudadList;
     private Activity context;
     private RoomDB database;
+    private  View myView;
 
     public MainAdapter(Activity context ){
         //        //llama a la base de datos UNA UNICA VEZ
@@ -41,6 +50,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ciudad> {
 
     }
 
+
     @NonNull
 
     //dar Layout a cada elemento del array de ciudades
@@ -49,6 +59,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ciudad> {
     public ciudad onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tajeta,parent,false);
         return new ciudad(view);
+
     }
     //dar los datos al viewHolder
     @Override
@@ -71,6 +82,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ciudad> {
         //¿holder que es en realidad?
 
         holder.img_editar.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 Ciudad c = ciudadList.get(holder.getAdapterPosition());
@@ -81,7 +93,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ciudad> {
                 //Crear Diálogo
                 Dialog dialog = new Dialog(context);
                 // Asignar view
-                dialog.setContentView(R.layout.dialog_editar);
+
+                if (myView == null)
+                    myView = LayoutInflater.from(context).inflate(R.layout.dialog_editar, null);
+                if (myView.getParent() != null)
+                    ((ViewGroup) myView.getParent()).removeView(myView);
+
+                dialog.setContentView(myView);
                 int width = WindowManager.LayoutParams.MATCH_PARENT;
                 int height = WindowManager.LayoutParams.WRAP_CONTENT;
                 dialog.getWindow().setLayout(width,height);
@@ -89,12 +107,19 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ciudad> {
                 //Asignar variables del dialog
 
                 TextInputEditText tiet_nombre = dialog.findViewById(R.id.tiet_nombreCiudad);
+                TextInputEditText tiet_pais = dialog.findViewById(R.id.tiet_pais);
                 Button bt_actualizar = dialog.findViewById(R.id.bt_actualizar);
-
-
-                //Button bt_borrarCiudad = dialog.findViewById(R.id.img_borrar);
-
                 tiet_nombre.setText(sText);
+                SupportMapFragment fragment = (SupportMapFragment) ((AppCompatActivity) context).getSupportFragmentManager().findFragmentById(R.id.dialog_map);
+                fragment.getMapAsync(new OnMapReadyCallback() {
+                    @Override
+                    public void onMapReady(GoogleMap googleMap) {
+                        LatLng latLng = new LatLng(ciudad.getLatitud(),ciudad.getLongitud());
+                        googleMap.addMarker(new MarkerOptions().title(ciudad.getNombreCiudad())
+                                .position(latLng));
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                    }
+                });
 
                 bt_actualizar.setOnClickListener(new View.OnClickListener() {
                     @Override

@@ -1,7 +1,5 @@
 package com.example.roomejercicio;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,7 +8,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import com.example.roomejercicio.bbdd.Ciudad;
 import com.example.roomejercicio.bbdd.RoomDB;
@@ -123,7 +120,7 @@ public class AddCiudad extends AppCompatActivity implements OnMapReadyCallback {
         bt_enviarciudad = findViewById(R.id.bt_enviarciudad);
 
         //Metodo que implementa OnMapReadyCallback => SupportMapFragment
-        SupportMapFragment fragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.todasciudadesmap);
+        SupportMapFragment fragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.dialog_map);
         fragment.getMapAsync(this);
 
         bt_enviarciudad.setOnClickListener(new View.OnClickListener() {

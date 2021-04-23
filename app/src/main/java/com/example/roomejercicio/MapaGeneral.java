@@ -1,15 +1,12 @@
 package com.example.roomejercicio;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 
 import com.example.roomejercicio.bbdd.Ciudad;
 import com.example.roomejercicio.bbdd.RoomDB;
@@ -25,7 +22,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MapaGeneral extends AppCompatActivity implements OnMapReadyCallback {
     private Marker Mciudad;
@@ -34,7 +30,7 @@ public class MapaGeneral extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mapageneral);
-        SupportMapFragment fragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.todasciudadesmap);
+        SupportMapFragment fragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.general_map);
         fragment.getMapAsync(this);
 /*        database = RoomDB.getInstance(this);
 

@@ -6,22 +6,49 @@
     android:orientation="vertical"
     app:cardCornerRadius="30dp">
 
-    <com.google.android.material.textfield.TextInputLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tiet_nombreCiudad"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:hint="Nombre de la ciudad" />
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/bt_actualizar"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_nombreCiudad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre de la ciudad" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button" />
+            android:layout_height="wrap_content">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_pais"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre del Pais" />
+
+            <fragment
+                android:id="@+id/dialog_map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="400dp"
+                android:layout_height="400dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp">
+            </fragment>
+
+            <Button
+                android:id="@+id/bt_actualizar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>
