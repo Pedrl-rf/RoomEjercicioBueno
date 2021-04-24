@@ -47,7 +47,8 @@
                 android:id="@+id/bt_actualizar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:backgroundTint="@color/design_default_color_error"
+                android:text="Acutalizar" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
