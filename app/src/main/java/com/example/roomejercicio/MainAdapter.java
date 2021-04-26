@@ -71,8 +71,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ciudad> {
         //Valor a los textView
         holder.tv_nombreCiudad.setText(ciudad.getNombreCiudad());
         holder.tv_nombrePais.setText(ciudad.getNombrePais());
-        holder.tv_latitud.setText(String.valueOf(ciudad.getLatitud()));
-        holder.tv_longitud.setText(String.valueOf(ciudad.getLongitud()));
 
 
 
@@ -85,11 +83,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ciudad> {
 
             @Override
             public void onClick(View v) {
-                Ciudad c = ciudadList.get(holder.getAdapterPosition());
+                Ciudad ciudadParaEditar = ciudadList.get(holder.getAdapterPosition());
                 //obtengo id de la base de datos
-                int sID = c.getId();
+                int sID = ciudadParaEditar.getId();
 
-                String sText = c.getNombreCiudad();
+                String nombreCiudad = ciudadParaEditar.getNombreCiudad();
+                String nombrePais = ciudadParaEditar.getNombrePais();
                 //Crear Diálogo
                 Dialog dialog = new Dialog(context);
                 // Asignar view
@@ -109,7 +108,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ciudad> {
                 TextInputEditText tiet_nombre = dialog.findViewById(R.id.tiet_nombreCiudad);
                 TextInputEditText tiet_pais = dialog.findViewById(R.id.tiet_pais);
                 Button bt_actualizar = dialog.findViewById(R.id.bt_actualizar);
-                tiet_nombre.setText(sText);
+
+                tiet_nombre.setText(nombreCiudad);
+                tiet_pais.setText(nombrePais);
+
                 SupportMapFragment fragment = (SupportMapFragment) ((AppCompatActivity) context).getSupportFragmentManager().findFragmentById(R.id.dialog_map);
                 fragment.getMapAsync(new OnMapReadyCallback() {
                     @Override
@@ -121,6 +123,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ciudad> {
                     }
                 });
 
+
+
+
                 bt_actualizar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -128,6 +133,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ciudad> {
                         //Actualizar el texto para la base de datos
                         //.trim sirve para quitar los espacios en blanco
                         String uText = tiet_nombre.getText().toString();
+                        String vText = tiet_pais.getText().toString();
                         database.ciudadDao().update(sID,uText);
                         /*ciudadList.clear();
                         ciudadList.addAll(database.ciudadDao().getAll());
@@ -136,6 +142,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ciudad> {
                             @Override
                             public void run() {
                                 RoomDB.getInstance(context).ciudadDao().update(sID,uText);
+                                RoomDB.getInstance(context).ciudadDao().updatePais(sID,vText);
                             }
                         }).start();
                     }
@@ -175,13 +182,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ciudad> {
         holder.ch_visitada.setChecked(ciudad.isVisited());
         holder.ch_visitada.setEnabled(false);
 
-
-        if(holder.tv_longitud.getText().toString().isEmpty()){
-            holder.tv_longitud.setVisibility(View.GONE);
-        }
-        if(holder.tv_latitud.getText().toString().isEmpty()){
-            holder.tv_latitud.setVisibility(View.GONE);
-        }
     }
 
     @Override
@@ -202,10 +202,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ciudad> {
 
         public ciudad(@NonNull View itemView) {
             super(itemView);
-            tv_nombrePais = itemView.findViewById(R.id.tv_nombre);
-            tv_nombreCiudad = itemView.findViewById(R.id.tv_pais);
-            tv_latitud = itemView.findViewById(R.id.tv_latitud);
-            tv_longitud = itemView.findViewById(R.id.tv_longitud);
+            tv_nombreCiudad = itemView.findViewById(R.id.tv_nombre);
+            tv_nombrePais = itemView.findViewById(R.id.tv_pais);
 
             img_editar = itemView.findViewById(R.id.img_editar);
             img_borrar = itemView.findViewById(R.id.img_borrar);

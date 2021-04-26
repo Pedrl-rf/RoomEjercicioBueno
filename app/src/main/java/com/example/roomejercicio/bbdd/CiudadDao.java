@@ -29,6 +29,9 @@ public interface CiudadDao {
     @Query("UPDATE ciudad SET NombreCiudad = :sText WHERE ID = :sID")
     void update(int sID, String sText);
 
+    @Query("UPDATE ciudad SET NombrePais = :sText WHERE ID = :sID")
+    void updatePais(int sID, String sText);
+
     //Obtener todos los datos
     @Query("SELECT * FROM ciudad")
     LiveData<List<Ciudad>> getAll();
