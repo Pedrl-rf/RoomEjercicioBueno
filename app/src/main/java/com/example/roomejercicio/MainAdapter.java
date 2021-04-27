@@ -1,8 +1,11 @@
 package com.example.roomejercicio;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +18,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,12 +40,12 @@ import java.util.List;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ciudad> {
     //Variables del adaptador
-    private ArrayList<Ciudad>ciudadList;
+    private ArrayList<Ciudad> ciudadList;
     private Activity context;
     private RoomDB database;
-    private  View myView;
+    private View myView;
 
-    public MainAdapter(Activity context ){
+    public MainAdapter(Activity context) {
         //        //llama a la base de datos UNA UNICA VEZ
         database = RoomDB.getInstance(context);
         this.context = context;
@@ -57,13 +61,15 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ciudad> {
 
     @Override
     public ciudad onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tajeta,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tajeta, parent, false);
         return new ciudad(view);
 
     }
+
     //dar los datos al viewHolder
     @Override
     public void onBindViewHolder(@NonNull ciudad holder, int position) {
+
         //No se lo que hace
         Ciudad ciudad = ciudadList.get(position);
         //Iniciar base de datos
@@ -71,7 +77,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ciudad> {
         //Valor a los textView
         holder.tv_nombreCiudad.setText(ciudad.getNombreCiudad());
         holder.tv_nombrePais.setText(ciudad.getNombrePais());
-
 
 
         //¿Parse a string para SetText?
@@ -101,7 +106,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ciudad> {
                 dialog.setContentView(myView);
                 int width = WindowManager.LayoutParams.MATCH_PARENT;
                 int height = WindowManager.LayoutParams.WRAP_CONTENT;
-                dialog.getWindow().setLayout(width,height);
+                dialog.getWindow().setLayout(width, height);
                 dialog.show();
                 //Asignar variables del dialog
 
@@ -112,14 +117,25 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ciudad> {
                 tiet_nombre.setText(nombreCiudad);
                 tiet_pais.setText(nombrePais);
 
+
+                //Location.distanceBetween();
+
+
+
                 SupportMapFragment fragment = (SupportMapFragment) ((AppCompatActivity) context).getSupportFragmentManager().findFragmentById(R.id.dialog_map);
                 fragment.getMapAsync(new OnMapReadyCallback() {
                     @Override
                     public void onMapReady(GoogleMap googleMap) {
-                        LatLng latLng = new LatLng(ciudad.getLatitud(),ciudad.getLongitud());
+                        LatLng latLng = new LatLng(ciudad.getLatitud(), ciudad.getLongitud());
                         googleMap.addMarker(new MarkerOptions().title(ciudad.getNombreCiudad())
                                 .position(latLng));
                         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+
+                        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                                ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            return;
+                        }
+                        googleMap.setMyLocationEnabled(true);
                     }
                 });
 
@@ -216,4 +232,5 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ciudad> {
         ciudadList = lista;
         notifyDataSetChanged();
     }
+
 }

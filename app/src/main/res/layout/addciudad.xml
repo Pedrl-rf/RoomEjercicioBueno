@@ -6,99 +6,142 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tiet_NombreCiudad"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nombre Ciudad" />
+            android:layout_height="match_parent">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tiet_NombrePais"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nombre Pais" />
-    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiet_NombreCiudad"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Nombre Ciudad" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tiet_latitud"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Latitud" />
-    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiet_NombrePais"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Nombre Pais" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tiet_longitud"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Logitud" />
-    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-    <CheckBox
-        android:id="@+id/visited"
-        android:layout_width="244dp"
-        android:layout_height="39dp"
-        android:layout_marginEnd="317dp"
-        android:backgroundTint="#FFC107"
-        android:text="Vista"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiet_latitud"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Latitud" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-    <fragment
-        android:id="@+id/dialog_map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="372dp"
-        android:layout_height="372dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/bt_enviarciudad"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="parent" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/bt_enviarciudad"
-        android:layout_width="311dp"
-        android:layout_height="42dp"
-        android:layout_marginBottom="24dp"
-        android:backgroundTint="@color/design_default_color_error"
-        android:text="Enviar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiet_longitud"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Logitud" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <CheckBox
+                    android:id="@+id/visited"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="317dp"
+                    android:backgroundTint="#FFC107"
+                    android:text="Vista" />
+
+                <TextView
+                    android:id="@+id/tv_galeria"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="84dp"
+                    android:fontFamily="@font/bungee_inline"
+                    android:text="Añadir foto desde la galeria"
+                    android:textColor="#FF0101"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_camara"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="84dp"
+                    android:fontFamily="@font/bungee_inline"
+                    android:text="Añadir foto desde la cámara"
+                    android:textColor="#FF0101"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
+
+
+                <fragment
+                    android:id="@+id/dialog_map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="372dp"
+                    android:layout_height="372dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="16dp" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <Button
+                    android:id="@+id/bt_enviarciudad"
+                    android:layout_width="311dp"
+                    android:layout_height="42dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="24dp"
+                    android:backgroundTint="@color/design_default_color_error"
+                    android:text="Enviar" />
+
+
+            </LinearLayout>
+        </ScrollView>
+
+
+
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

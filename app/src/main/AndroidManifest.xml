@@ -2,8 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.roomejercicio">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"
-        android:required="false"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" android:required="false"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:required="false"></uses-permission>
+    <uses-permission android:name="android.permission.CAMERA" android:required="false"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" android:required="false"></uses-permission>
+
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
 
     <application
@@ -25,5 +28,8 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAogvY7hDfmLjYOnTqzFVgeUy3AeJrVWsQ" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 </manifest>
