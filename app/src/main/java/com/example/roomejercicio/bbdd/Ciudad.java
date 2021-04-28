@@ -18,27 +18,28 @@ import java.io.Serializable;
 public class Ciudad implements Parcelable,Comparable<Ciudad> {
     @PrimaryKey(autoGenerate = true)
     private int id;
-
     @ColumnInfo(name = "NombreCiudad")
     private String nombreCiudad;
     @ColumnInfo(name = "NombrePais")
     private String nombrePais;
-
     @ColumnInfo(name = "latitud")
     private double latitud;
     @ColumnInfo(name = "longitud")
     private double longitud;
     @ColumnInfo (name = "Visitada")
     private boolean visited;
+    @ColumnInfo(name="Imagen")
+    private String imagen;
 
 
 
-    public Ciudad(String nombreCiudad, String nombrePais, boolean visited, double latitud, double longitud) {
+    public Ciudad(String nombreCiudad, String nombrePais, boolean visited, double latitud, double longitud, String imagen) {
         this.nombreCiudad = nombreCiudad;
         this.nombrePais = nombrePais;
         this.visited = visited;
         this.latitud = latitud;
         this.longitud = longitud;
+        this.imagen = imagen;
     }
 
     @Ignore
@@ -46,6 +47,7 @@ public class Ciudad implements Parcelable,Comparable<Ciudad> {
         id = in.readInt();
         nombreCiudad = in.readString();
         nombrePais = in.readString();
+        imagen = in.readString();
         latitud = in.readDouble();
         longitud = in.readDouble();
         visited = in.readByte() != 0;
@@ -111,6 +113,14 @@ public class Ciudad implements Parcelable,Comparable<Ciudad> {
         this.longitud = longitud;
     }
 
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -120,6 +130,7 @@ public class Ciudad implements Parcelable,Comparable<Ciudad> {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(nombreCiudad);
+        dest.writeString(imagen);
         dest.writeString(nombrePais);
         dest.writeDouble(latitud);
         dest.writeDouble(longitud);
@@ -129,7 +140,7 @@ public class Ciudad implements Parcelable,Comparable<Ciudad> {
     @Override
     public int compareTo(Ciudad o) {
         String o_nombreciudad = o.getNombreCiudad().toUpperCase();
-        String marca_this = this.nombreCiudad.toUpperCase();
-        return marca_this.compareTo(o_nombreciudad);
+        String nombreCiudad_this = this.nombreCiudad.toUpperCase();
+        return nombreCiudad_this.compareTo(o_nombreciudad);
     }
 }

@@ -61,13 +61,10 @@ public class MapaGeneral extends AppCompatActivity implements OnMapReadyCallback
                     .position(new LatLng(todasCiudades.get(i).getLatitud(),todasCiudades.get(i).getLongitud()))
                     .title(todasCiudades.get(i).getNombreCiudad())
                     .snippet(String.valueOf(todasCiudades.get(i).getLatitud())+" , "+String.valueOf(todasCiudades.get(i).getLongitud()))
-                    .flat(true)
-                    .draggable(true)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
             Mciudad = map.addMarker(todasLasCiudades);
         }
-
-
+        
 
         map.setTrafficEnabled(true); //trafico activado
 

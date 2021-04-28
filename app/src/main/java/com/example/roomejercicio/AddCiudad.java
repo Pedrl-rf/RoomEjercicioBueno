@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -70,7 +71,11 @@ public class AddCiudad extends AppCompatActivity implements OnMapReadyCallback {
 //        GoogleMap.MAP_TYPE_SATELLITE
 //        GoogleMap.MAP_TYPE_TERRAIN
 
-
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        map.setMyLocationEnabled(true);
         map.getUiSettings().setMyLocationButtonEnabled(true);
         map.setTrafficEnabled(true); //trafico activado
 
@@ -117,11 +122,12 @@ public class AddCiudad extends AppCompatActivity implements OnMapReadyCallback {
             @Override
             public void onMapClick(LatLng latLng) {
                 marker4.remove();
-
+                float results[]= new float[10];
+                Location.distanceBetween(latLng.longitude,latLng.latitude,longitude,latitude,results);
                 MarkerOptions options = new MarkerOptions()
                         .position(latLng)
                         .title("Estas aqui")
-                        .snippet("Pulsa aquí para acceder")
+                        //.snippet("Distancia : "+results[0])
                         .flat(true)
                         .draggable(true)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
@@ -129,7 +135,7 @@ public class AddCiudad extends AppCompatActivity implements OnMapReadyCallback {
                 longitude = latLng.longitude;
                 latitude = latLng.latitude;
 
-                Toast.makeText(AddCiudad.this, "Latitud: " + latitude + ", Longitud: " + longitude, Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddCiudad.this, "Latitud: " + latitude + ", Longitud: " + longitude + ", Distancia: "+results[0]+" metros", Toast.LENGTH_LONG).show();
                 String latitud = String.valueOf(latitude);
                 tiet_latitud.setText(latitud);
                 String longitud = String.valueOf(longitude);
@@ -161,7 +167,7 @@ public class AddCiudad extends AppCompatActivity implements OnMapReadyCallback {
             imageView.setImageURI(mImageUri);
         }
 
-        checkPermissions();
+
 
 
         //Metodo que implementa OnMapReadyCallback => SupportMapFragment
@@ -175,7 +181,7 @@ public class AddCiudad extends AppCompatActivity implements OnMapReadyCallback {
                 String nombrePais = tiet_nombrepais.getText().toString();
                 boolean visitado = ch_visited.isChecked();
 
-                Ciudad ciudad = new Ciudad(nombreCiudad,nombrePais,visitado,latitude,longitude);
+                Ciudad ciudad = new Ciudad(nombreCiudad,nombrePais,visitado,latitude,longitude,mImageString);
 
                 new Thread(new Runnable() {
                     @Override
@@ -207,8 +213,8 @@ public class AddCiudad extends AppCompatActivity implements OnMapReadyCallback {
     private void checkPermissions() {
         // si hay permisos, se inicia la cámara, si no se han concedido permisos, se piden al usuario
 
-        //Permisos Almacenamiento
-        int ubicacion = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        //int ubicacion = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED ||
                 (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)||
@@ -218,6 +224,7 @@ public class AddCiudad extends AppCompatActivity implements OnMapReadyCallback {
             if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
                 String[] arrayPermisos = {Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.CAMERA};
                 requestPermissions(arrayPermisos,REQUEST_ALL_CODE);
+                Toast.makeText(this, "Permisos dados", Toast.LENGTH_LONG).show();
                 fromCamera();
             }
         }

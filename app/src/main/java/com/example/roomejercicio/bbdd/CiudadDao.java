@@ -39,5 +39,6 @@ public interface CiudadDao {
     @Query("DELETE FROM ciudad")
     void deleteall();
 
+
     
 }

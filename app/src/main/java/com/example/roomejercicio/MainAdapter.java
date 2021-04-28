@@ -6,7 +6,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.Parcelable;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +77,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ciudad> {
         //Valor a los textView
         holder.tv_nombreCiudad.setText(ciudad.getNombreCiudad());
         holder.tv_nombrePais.setText(ciudad.getNombrePais());
-
+        String uri = ciudad.getImagen();
+        holder.img_ciudad.setImageURI(Uri.parse(uri));
 
         //¿Parse a string para SetText?
         //holder.tv_latitud.setText(ciudad.getLatitud());
@@ -226,6 +227,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ciudad> {
             img_ciudad = itemView.findViewById(R.id.img_ciudad);
             ch_visitada = itemView.findViewById(R.id.ch_visitada);
             fab_mapa = itemView.findViewById(R.id.fab_mapa);
+
+
         }
     }
     public void updateList(ArrayList<Ciudad> lista) {
