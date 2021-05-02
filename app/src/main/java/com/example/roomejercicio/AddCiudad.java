@@ -180,16 +180,18 @@ public class AddCiudad extends AppCompatActivity implements OnMapReadyCallback {
                 String nombreCiudad = tiet_nombreciudad.getText().toString();
                 String nombrePais = tiet_nombrepais.getText().toString();
                 boolean visitado = ch_visited.isChecked();
-
                 Ciudad ciudad = new Ciudad(nombreCiudad,nombrePais,visitado,latitude,longitude,mImageString);
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        RoomDB.getInstance(AddCiudad.this).ciudadDao().insert(ciudad);
-                    }
-                }).start();
-                finish();
+                if (tiet_nombreciudad.getText().toString().equals("")||tiet_nombrepais.getText().toString().equals("")||tiet_latitud.getText().toString().equals("")||tiet_longitud.getText().toString().equals("")||mImageString == null){
+                    tiet_nombreciudad.setError("HAY ALGUN PROBLEMA");
+                }else{
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            RoomDB.getInstance(AddCiudad.this).ciudadDao().insert(ciudad);
+                        }
+                    }).start();
+                    finish();
+                }
             }
         });
 
